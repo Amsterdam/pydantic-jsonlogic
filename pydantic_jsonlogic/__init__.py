@@ -1,6 +1,6 @@
 from typing import Any
 
-from pydantic import BaseModel, ConfigDict, field_validator
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class Var(BaseModel):
@@ -19,3 +19,9 @@ class MissingSome(BaseModel):
     model_config = ConfigDict(strict=True)
 
     missing_some: tuple[int, list[str]]
+
+
+class Equals(BaseModel):
+    model_config = ConfigDict(strict=True)
+
+    equals: tuple[Any, Any] = Field(validation_alias="==")
