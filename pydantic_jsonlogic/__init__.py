@@ -67,3 +67,9 @@ class GreaterThanOrEqual(BaseModel):
     model_config = ConfigDict(strict=True)
 
     greater_than_or_equal: tuple[int | str, int | str] = Field(validation_alias=">=")
+
+
+class LessThan(BaseModel):
+    model_config = ConfigDict(strict=True)
+
+    less_than: tuple[int | str, int | str] = Field(validation_alias="<")
