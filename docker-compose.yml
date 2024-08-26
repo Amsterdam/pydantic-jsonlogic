@@ -1,0 +1,7 @@
+services:
+  pydantic-jsonlogic:
+    image: amsterdam/pydantic-jsonlogic
+    build:
+      context: .
+    volumes:
+      - ".:/opt/pydantic-jsonlogic"
