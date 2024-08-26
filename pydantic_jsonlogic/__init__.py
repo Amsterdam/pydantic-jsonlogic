@@ -7,3 +7,9 @@ class Var(BaseModel):
     model_config = ConfigDict(strict=True)
 
     var: tuple[str] | str | tuple[str, Any] | int | None | list[None]
+
+
+class Missing(BaseModel):
+    model_config = ConfigDict(strict=True)
+
+    missing: list[str] | str
