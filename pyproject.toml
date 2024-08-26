@@ -18,3 +18,10 @@ pytest = "^8.3.2"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+overwrite_in_place = true
+
+[tool.mypy]
+strict = true
