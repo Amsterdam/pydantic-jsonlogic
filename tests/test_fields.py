@@ -2,6 +2,7 @@ import pytest
 
 from pydantic_jsonlogic import (
     Equals,
+    GreaterThan,
     Missing,
     MissingSome,
     Not,
@@ -126,3 +127,16 @@ def test_not(json: str) -> None:
 )
 def test_not_not(json: str) -> None:
     NotNot.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{">":[2,1]}',
+        '{">":[1,1]}',
+        '{">":[1,2]}',
+        '{">":["2",1]}',
+    ],
+)
+def test_greater_than(json: str) -> None:
+    GreaterThan.model_validate_json(json)

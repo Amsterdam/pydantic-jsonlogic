@@ -55,3 +55,9 @@ class NotNot(BaseModel):
     model_config = ConfigDict(strict=True)
 
     not_not: tuple[int | str | list[None]] = Field(validation_alias="!!")
+
+
+class GreaterThan(BaseModel):
+    model_config = ConfigDict(strict=True)
+
+    greater_than: tuple[int | str, int | str] = Field(validation_alias=">")
