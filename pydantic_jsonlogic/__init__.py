@@ -49,3 +49,9 @@ class Not(BaseModel):
     model_config = ConfigDict(strict=True)
 
     not_: tuple[bool | int] | bool | int = Field(validation_alias="!")
+
+
+class NotNot(BaseModel):
+    model_config = ConfigDict(strict=True)
+
+    not_not: tuple[int | str | list[None]] = Field(validation_alias="!!")

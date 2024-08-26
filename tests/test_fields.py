@@ -6,6 +6,7 @@ from pydantic_jsonlogic import (
     MissingSome,
     Not,
     NotEquals,
+    NotNot,
     StrictEquals,
     StrictNotEquals,
     Var,
@@ -112,3 +113,16 @@ def test_strict_not_equals(json: str) -> None:
 )
 def test_not(json: str) -> None:
     Not.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"!!" : [ [] ]}',
+        '{"!!" : [ 0 ]}',
+        '{"!!" : [ "" ]}',
+        '{"!!" : [ "0" ]}',
+    ],
+)
+def test_not_not(json: str) -> None:
+    NotNot.model_validate_json(json)
