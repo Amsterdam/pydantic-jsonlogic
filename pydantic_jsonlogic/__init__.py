@@ -25,3 +25,9 @@ class Equals(BaseModel):
     model_config = ConfigDict(strict=True)
 
     equals: tuple[Any, Any] = Field(validation_alias="==")
+
+
+class StrictEquals(BaseModel):
+    model_config = ConfigDict(strict=True)
+
+    strict_equals: tuple[Any, Any] = Field(validation_alias="===")

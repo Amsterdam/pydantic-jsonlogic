@@ -1,6 +1,6 @@
 import pytest
 
-from pydantic_jsonlogic import Equals, Missing, MissingSome, Var
+from pydantic_jsonlogic import Equals, Missing, MissingSome, StrictEquals, Var
 
 
 @pytest.mark.parametrize(
@@ -52,3 +52,15 @@ def test_missing_some(json: str) -> None:
 )
 def test_equals(json: str) -> None:
     Equals.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"===":[1,1]}',
+        '{"===":[1,"1"]}',
+        '{"===":[1,2]}',
+    ],
+)
+def test_strict_equals(json: str) -> None:
+    StrictEquals.model_validate_json(json)
