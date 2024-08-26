@@ -37,3 +37,9 @@ class NotEquals(BaseModel):
     model_config = ConfigDict(strict=True)
 
     not_equals: tuple[Any, Any] = Field(validation_alias="!=")
+
+
+class StrictNotEquals(BaseModel):
+    model_config = ConfigDict(strict=True)
+
+    strict_not_equals: tuple[Any, Any] = Field(validation_alias="!==")
