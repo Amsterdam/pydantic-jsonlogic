@@ -1,6 +1,6 @@
 import pytest
 
-from pydantic_jsonlogic import Missing, Var
+from pydantic_jsonlogic import Missing, MissingSome, Var
 
 
 @pytest.mark.parametrize(
@@ -29,3 +29,14 @@ def test_var(json: str) -> None:
 )
 def test_missing(json: str) -> None:
     Missing.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"missing_some":[1, ["a", "b"]]}',
+        '{"missing_some":[2, ["a", "b", "c"]]}',
+    ],
+)
+def test_missing_some(json: str) -> None:
+    MissingSome.model_validate_json(json)

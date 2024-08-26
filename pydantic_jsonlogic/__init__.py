@@ -13,3 +13,9 @@ class Missing(BaseModel):
     model_config = ConfigDict(strict=True)
 
     missing: list[str] | str
+
+
+class MissingSome(BaseModel):
+    model_config = ConfigDict(strict=True)
+
+    missing_some: tuple[int, list[str]]
