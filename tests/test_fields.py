@@ -2,6 +2,7 @@ import pytest
 
 from pydantic_jsonlogic import (
     Add,
+    And,
     Cat,
     Divide,
     Equals,
@@ -375,3 +376,23 @@ def test_merge(json: str) -> None:
 )
 def test_or(json: str) -> None:
     Or.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"and":[true,true]}',
+        '{"and":[false,true]}',
+        '{"and":[true,false]}',
+        '{"and":[false,false]}',
+        '{"and":[true,true,true]}',
+        '{"and":[true,true,false]}',
+        '{"and":[false]}',
+        '{"and":[true]}',
+        '{"and":[1,3]}',
+        '{"and":[3,false]}',
+        '{"and":[false,3]}',
+    ],
+)
+def test_and(json: str) -> None:
+    And.model_validate_json(json)
