@@ -115,3 +115,9 @@ class Multiply(BaseModel):
     model_config = ConfigDict(strict=True)
 
     multiply: list[int | str] = Field(validation_alias="*")
+
+
+class Divide(BaseModel):
+    model_config = ConfigDict(strict=True)
+
+    divide: tuple[int | str, int | str] = Field(validation_alias="/")

@@ -2,6 +2,7 @@ import pytest
 
 from pydantic_jsonlogic import (
     Add,
+    Divide,
     Equals,
     GreaterThan,
     GreaterThanOrEqual,
@@ -249,3 +250,14 @@ def test_subtract(json: str) -> None:
 )
 def test_multiply(json: str) -> None:
     Multiply.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"/":[4,2]}',
+        '{"/":["1",1]}',
+    ],
+)
+def test_divide(json: str) -> None:
+    Divide.model_validate_json(json)
