@@ -12,6 +12,7 @@ from pydantic_jsonlogic import (
     Min,
     Missing,
     MissingSome,
+    Modulo,
     Multiply,
     Not,
     NotEquals,
@@ -261,3 +262,13 @@ def test_multiply(json: str) -> None:
 )
 def test_divide(json: str) -> None:
     Divide.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"%":[1,2]}',
+    ],
+)
+def test_modulo(json: str) -> None:
+    Modulo.model_validate_json(json)

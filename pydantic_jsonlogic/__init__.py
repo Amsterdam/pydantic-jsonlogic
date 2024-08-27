@@ -121,3 +121,9 @@ class Divide(BaseModel):
     model_config = ConfigDict(strict=True)
 
     divide: tuple[int | str, int | str] = Field(validation_alias="/")
+
+
+class Modulo(BaseModel):
+    model_config = ConfigDict(strict=True)
+
+    modulo: tuple[int, int] = Field(validation_alias="%")
