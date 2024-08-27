@@ -112,7 +112,7 @@ class Merge(BaseModel):
 
 
 class Or(BaseModel):
-    or_: list[bool | int] = Field(validation_alias="or")
+    or_: list[bool | int | list[None]] = Field(validation_alias="or")
 
 
 class And(BaseModel):

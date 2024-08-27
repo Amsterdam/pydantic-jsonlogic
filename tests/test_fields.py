@@ -377,6 +377,7 @@ def test_merge(json: str) -> None:
         '{"or":[1,3]}',
         '{"or":[3,false]}',
         '{"or":[false,3]}',
+        '{"or" : [ [], true ]}',
     ],
 )
 def test_or(json: str) -> None:
