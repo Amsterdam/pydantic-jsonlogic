@@ -165,6 +165,7 @@ def test_greater_than_or_equals(json: str) -> None:
         '{"<":[1,1]}',
         '{"<":[1,2]}',
         '{"<":["1",2]}',
+        '{"<":[1,2,3]}',
     ],
 )
 def test_less_than(json: str) -> None:
@@ -178,6 +179,7 @@ def test_less_than(json: str) -> None:
         '{"<=":[1,1]}',
         '{"<=":[1,2]}',
         '{"<=":["1",2]}',
+        '{"<=":[1,4,3]}',
     ],
 )
 def test_less_than_or_equal(json: str) -> None:
