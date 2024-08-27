@@ -107,3 +107,7 @@ class Log(BaseModel):
 
 class Merge(BaseModel):
     merge: Any
+
+
+class Or(BaseModel):
+    or_: list[bool | int] = Field(validation_alias="or")

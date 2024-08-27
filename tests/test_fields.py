@@ -21,6 +21,7 @@ from pydantic_jsonlogic import (
     Not,
     NotEquals,
     NotNot,
+    Or,
     StrictEquals,
     StrictNotEquals,
     Substr,
@@ -354,3 +355,23 @@ def test_log(json: str) -> None:
 )
 def test_merge(json: str) -> None:
     Merge.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"or":[true,true]}',
+        '{"or":[false,true]}',
+        '{"or":[true,false]}',
+        '{"or":[false,false]}',
+        '{"or":[false,false,true]}',
+        '{"or":[false,false,false]}',
+        '{"or":[false]}',
+        '{"or":[true]}',
+        '{"or":[1,3]}',
+        '{"or":[3,false]}',
+        '{"or":[false,3]}',
+    ],
+)
+def test_or(json: str) -> None:
+    Or.model_validate_json(json)
