@@ -109,3 +109,9 @@ class Subtract(BaseModel):
     subtract: tuple[int | str] | tuple[int | str, int | str] = Field(
         validation_alias="-"
     )
+
+
+class Multiply(BaseModel):
+    model_config = ConfigDict(strict=True)
+
+    multiply: list[int | str] = Field(validation_alias="*")

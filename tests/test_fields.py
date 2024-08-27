@@ -11,6 +11,7 @@ from pydantic_jsonlogic import (
     Min,
     Missing,
     MissingSome,
+    Multiply,
     Not,
     NotEquals,
     NotNot,
@@ -235,3 +236,16 @@ def test_add(json: str) -> None:
 )
 def test_subtract(json: str) -> None:
     Subtract.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"*":[1]}',
+        '{"*":[3,2]}',
+        '{"*":[2,2,2]}',
+        '{"*":["1",1]}',
+    ],
+)
+def test_multiply(json: str) -> None:
+    Multiply.model_validate_json(json)
