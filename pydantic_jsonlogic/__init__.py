@@ -101,3 +101,11 @@ class Add(BaseModel):
     model_config = ConfigDict(strict=True)
 
     add: list[int | str] = Field(validation_alias="+")
+
+
+class Subtract(BaseModel):
+    model_config = ConfigDict(strict=True)
+
+    subtract: tuple[int | str] | tuple[int | str, int | str] = Field(
+        validation_alias="-"
+    )
