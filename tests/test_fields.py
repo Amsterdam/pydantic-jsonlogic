@@ -12,6 +12,7 @@ from pydantic_jsonlogic import (
     LessThanOrEqual,
     Log,
     Max,
+    Merge,
     Min,
     Missing,
     MissingSome,
@@ -334,3 +335,22 @@ def test_substr(json: str) -> None:
 )
 def test_log(json: str) -> None:
     Log.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"merge":[]}',
+        '{"merge":[[1]]}',
+        '{"merge":[[1],[]]}',
+        '{"merge":[[1], [2]]}',
+        '{"merge":[[1], [2], [3]]}',
+        '{"merge":[[1, 2], [3]]}',
+        '{"merge":[[1], [2, 3]]}',
+        '{"merge":1}',
+        '{"merge":[1,2]}',
+        '{"merge":[1,[2]]}',
+    ],
+)
+def test_merge(json: str) -> None:
+    Merge.model_validate_json(json)

@@ -103,3 +103,7 @@ class Substr(BaseModel):
 
 class Log(BaseModel):
     log: int | str | bool | tuple[int | str | bool]
+
+
+class Merge(BaseModel):
+    merge: Any
