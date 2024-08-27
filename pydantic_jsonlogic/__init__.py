@@ -32,7 +32,9 @@ class StrictNotEquals(BaseModel):
 
 
 class Not(BaseModel):
-    not_: tuple[bool | int] | bool | int = Field(validation_alias="!")
+    not_: tuple[bool | int] | bool | int | tuple[list[None]] = Field(
+        validation_alias="!"
+    )
 
 
 class NotNot(BaseModel):

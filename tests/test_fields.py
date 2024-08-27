@@ -130,6 +130,7 @@ def test_strict_not_equals(json: str) -> None:
         '{"!":true}',
         '{"!":0}',
         '{"!":1}',
+        '{"!" : [ [] ]}',
     ],
 )
 def test_not(json: str) -> None:
