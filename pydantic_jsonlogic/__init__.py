@@ -89,3 +89,9 @@ class Max(BaseModel):
     model_config = ConfigDict(strict=True)
 
     max: list[int]
+
+
+class Min(BaseModel):
+    model_config = ConfigDict(strict=True)
+
+    min: list[int]
