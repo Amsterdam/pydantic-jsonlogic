@@ -95,3 +95,9 @@ class Min(BaseModel):
     model_config = ConfigDict(strict=True)
 
     min: list[int]
+
+
+class Add(BaseModel):
+    model_config = ConfigDict(strict=True)
+
+    add: list[int | str] = Field(validation_alias="+")
