@@ -116,7 +116,7 @@ class Or(BaseModel):
 
 
 class And(BaseModel):
-    and_: list[bool | int | list[None]] = Field(validation_alias="and")
+    and_: list[bool | int | str | list[None]] = Field(validation_alias="and")
 
 
 class If(BaseModel):
