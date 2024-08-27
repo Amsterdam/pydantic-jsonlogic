@@ -139,3 +139,9 @@ class Cat(BaseModel):
     model_config = ConfigDict(strict=True)
 
     cat: int | str | list[int | str]
+
+
+class Substr(BaseModel):
+    model_config = ConfigDict(strict=True)
+
+    substr: tuple[str, int] | tuple[str, int, int]

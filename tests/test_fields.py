@@ -21,6 +21,7 @@ from pydantic_jsonlogic import (
     NotNot,
     StrictEquals,
     StrictNotEquals,
+    Substr,
     Subtract,
     Var,
 )
@@ -300,3 +301,20 @@ def test_in(json: str) -> None:
 )
 def test_cat(json: str) -> None:
     Cat.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"substr":["jsonlogic", 4]}',
+        '{"substr":["jsonlogic", -5]}',
+        '{"substr":["jsonlogic", 0, 1]}',
+        '{"substr":["jsonlogic", -1, 1]}',
+        '{"substr":["jsonlogic", 4, 5]}',
+        '{"substr":["jsonlogic", -5, 5]}',
+        '{"substr":["jsonlogic", -5, -2]}',
+        '{"substr":["jsonlogic", 1, -5]}',
+    ],
+)
+def test_substr(json: str) -> None:
+    Substr.model_validate_json(json)
