@@ -439,6 +439,8 @@ def test_and(json: str) -> None:
         '{"if":[true, "apple", false, "banana", true, "carrot", "date"]}',
         '{"if":[true, "apple", true, "banana", false, "carrot", "date"]}',
         '{"if":[true, "apple", true, "banana", true, "carrot", "date"]}',
+        '{"if":[ {"+":"0"}, "apple", "banana"]}',
+        '{"if":[ {"+":"1"}, "apple", "banana"]}',
     ],
 )
 def test_if(json: str) -> None:
