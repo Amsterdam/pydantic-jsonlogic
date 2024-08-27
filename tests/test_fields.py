@@ -147,6 +147,7 @@ def test_not(json: str) -> None:
         '{"!!" : [ "" ]}',
         '{"!!" : [ "0" ]}',
         '{"!!" : [ [] ]}',
+        '{"!!" : [ "" ]}',
     ],
 )
 def test_not_not(json: str) -> None:
