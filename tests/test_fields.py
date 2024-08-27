@@ -6,6 +6,7 @@ from pydantic_jsonlogic import (
     GreaterThanOrEqual,
     LessThan,
     LessThanOrEqual,
+    Max,
     Missing,
     MissingSome,
     Not,
@@ -184,3 +185,14 @@ def test_less_than(json: str) -> None:
 )
 def test_less_than_or_equal(json: str) -> None:
     LessThanOrEqual.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"max":[1,2,3]}',
+        '{"max":[1]}',
+    ],
+)
+def test_max(json: str) -> None:
+    Max.model_validate_json(json)
