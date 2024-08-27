@@ -10,6 +10,7 @@ from pydantic_jsonlogic import (
     In,
     LessThan,
     LessThanOrEqual,
+    Log,
     Max,
     Min,
     Missing,
@@ -318,3 +319,18 @@ def test_cat(json: str) -> None:
 )
 def test_substr(json: str) -> None:
     Substr.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"log": "hello"}',
+        '{"log":["hello"]}',
+        '{"log":1}',
+        '{"log":false}',
+        '{"log":[1]}',
+        '{"log":[true]}',
+    ],
+)
+def test_log(json: str) -> None:
+    Log.model_validate_json(json)

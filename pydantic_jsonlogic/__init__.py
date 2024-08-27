@@ -99,3 +99,7 @@ class Cat(BaseModel):
 
 class Substr(BaseModel):
     substr: tuple[str, int] | tuple[str, int, int]
+
+
+class Log(BaseModel):
+    log: int | str | bool | tuple[int | str | bool]
