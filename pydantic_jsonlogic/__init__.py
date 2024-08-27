@@ -133,3 +133,9 @@ class In(BaseModel):
     model_config = ConfigDict(strict=True)
 
     in_: tuple[str, list[str] | str] = Field(validation_alias="in")
+
+
+class Cat(BaseModel):
+    model_config = ConfigDict(strict=True)
+
+    cat: int | str | list[int | str]

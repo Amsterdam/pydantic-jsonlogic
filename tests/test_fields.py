@@ -2,6 +2,7 @@ import pytest
 
 from pydantic_jsonlogic import (
     Add,
+    Cat,
     Divide,
     Equals,
     GreaterThan,
@@ -284,3 +285,18 @@ def test_modulo(json: str) -> None:
 )
 def test_in(json: str) -> None:
     In.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"cat":"ice"}',
+        '{"cat":["ice"]}',
+        '{"cat":["ice","cream"]}',
+        '{"cat":[1,2]}',
+        '{"cat":["Robocop",2]}',
+        '{"cat":["we all scream for ","ice","cream"]}',
+    ],
+)
+def test_cat(json: str) -> None:
+    Cat.model_validate_json(json)
