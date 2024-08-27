@@ -6,6 +6,7 @@ from pydantic_jsonlogic import (
     Equals,
     GreaterThan,
     GreaterThanOrEqual,
+    In,
     LessThan,
     LessThanOrEqual,
     Max,
@@ -272,3 +273,14 @@ def test_divide(json: str) -> None:
 )
 def test_modulo(json: str) -> None:
     Modulo.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"in":["Bart",["Bart","Homer","Lisa","Marge","Maggie"]]}',
+        '{"in":["i","team"]}',
+    ],
+)
+def test_in(json: str) -> None:
+    In.model_validate_json(json)

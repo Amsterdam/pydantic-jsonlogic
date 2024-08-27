@@ -127,3 +127,9 @@ class Modulo(BaseModel):
     model_config = ConfigDict(strict=True)
 
     modulo: tuple[int, int] = Field(validation_alias="%")
+
+
+class In(BaseModel):
+    model_config = ConfigDict(strict=True)
+
+    in_: tuple[str, list[str] | str] = Field(validation_alias="in")
