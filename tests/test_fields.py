@@ -8,6 +8,7 @@ from pydantic_jsonlogic import (
     Equals,
     GreaterThan,
     GreaterThanOrEqual,
+    If,
     In,
     LessThan,
     LessThanOrEqual,
@@ -396,3 +397,47 @@ def test_or(json: str) -> None:
 )
 def test_and(json: str) -> None:
     And.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"if":[]}',
+        '{"if":[true]}',
+        '{"if":[false]}',
+        '{"if":["apple"]}',
+        '{"if":[true, "apple"]}',
+        '{"if":[false, "apple"]}',
+        '{"if":[true, "apple", "banana"]}',
+        '{"if":[false, "apple", "banana"]}',
+        '{"if":[ [], "apple", "banana"]}',
+        '{"if":[ [1], "apple", "banana"]}',
+        '{"if":[ [1,2,3,4], "apple", "banana"]}',
+        '{"if":[ "", "apple", "banana"]}',
+        '{"if":[ "zucchini", "apple", "banana"]}',
+        '{"if":[ "0", "apple", "banana"]}',
+        '{"if":[ 0, "apple", "banana"]}',
+        '{"if":[ 1, "apple", "banana"]}',
+        '{"if":[ 3.1416, "apple", "banana"]}',
+        '{"if":[ -1, "apple", "banana"]}',
+        '{"if":[true, "apple", true, "banana"]}',
+        '{"if":[true, "apple", false, "banana"]}',
+        '{"if":[false, "apple", true, "banana"]}',
+        '{"if":[false, "apple", false, "banana"]}',
+        '{"if":[true, "apple", true, "banana", "carrot"]}',
+        '{"if":[true, "apple", false, "banana", "carrot"]}',
+        '{"if":[false, "apple", true, "banana", "carrot"]}',
+        '{"if":[false, "apple", false, "banana", "carrot"]}',
+        '{"if":[false, "apple", false, "banana", false, "carrot"]}',
+        '{"if":[false, "apple", false, "banana", false, "carrot", "date"]}',
+        '{"if":[false, "apple", false, "banana", true, "carrot", "date"]}',
+        '{"if":[false, "apple", true, "banana", false, "carrot", "date"]}',
+        '{"if":[false, "apple", true, "banana", true, "carrot", "date"]}',
+        '{"if":[true, "apple", false, "banana", false, "carrot", "date"]}',
+        '{"if":[true, "apple", false, "banana", true, "carrot", "date"]}',
+        '{"if":[true, "apple", true, "banana", false, "carrot", "date"]}',
+        '{"if":[true, "apple", true, "banana", true, "carrot", "date"]}',
+    ],
+)
+def test_if(json: str) -> None:
+    If.model_validate_json(json)
