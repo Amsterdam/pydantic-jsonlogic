@@ -116,7 +116,9 @@ class Merge(BaseJSONLogicOperation):
 
 
 class Or(BaseJSONLogicOperation):
-    or_: list[bool | int | str | list[None]] = Field(validation_alias="or")
+    or_: list[bool | int | str | list[None] | BaseJSONLogicOperation] = Field(
+        validation_alias="or"
+    )
 
 
 class And(BaseJSONLogicOperation):

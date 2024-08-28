@@ -386,6 +386,11 @@ def test_merge(json: str) -> None:
         '{"or" : [ 0, true ]}',
         '{"or" : [ "", true ]}',
         '{"or" : [ "0", true ]}',
+        '{"or":[{">":[3,1]},true]}',
+        '{"or":[{">":[3,1]},false]}',
+        '{"or":[{">":[3,1]},{"!":true}]}',
+        '{"or":[{">":[3,1]},{"<":[1,3]}]}',
+        '{"or":[{"<":[{"var":"temp"},110]},{"==":[{"var":"pie.filling"},"apple"]}]}',
     ],
 )
 def test_or(json: str) -> None:
