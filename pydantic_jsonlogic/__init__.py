@@ -96,7 +96,9 @@ class Modulo(BaseJSONLogicOperation):
 
 
 class In(BaseJSONLogicOperation):
-    in_: tuple[str, list[str] | str] = Field(validation_alias="in")
+    in_: tuple[int | str | BaseJSONLogicOperation, list[int | str] | str] = Field(
+        validation_alias="in"
+    )
 
 
 class Cat(BaseJSONLogicOperation):

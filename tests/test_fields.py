@@ -296,6 +296,9 @@ def test_modulo(json: str) -> None:
     [
         '{"in":["Bart",["Bart","Homer","Lisa","Marge","Maggie"]]}',
         '{"in":["i","team"]}',
+        '{"in":[1,[2,3]]}',
+        '{"in":[1,[1,2,3,"a","b"]]}',
+        '{"in":[{"var":"filling"},["apple","cherry"]]}',
     ],
 )
 def test_in(json: str) -> None:
