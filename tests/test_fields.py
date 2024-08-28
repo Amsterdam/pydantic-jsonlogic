@@ -14,6 +14,7 @@ from pydantic_jsonlogic import (
     LessThan,
     LessThanOrEqual,
     Log,
+    Map,
     Max,
     Merge,
     Min,
@@ -493,3 +494,15 @@ def test_if(json: str) -> None:
 )
 def test_filter(json: str) -> None:
     Filter.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"map":[{"var":"integers"}, {"*":[{"var":""},2]}]}',
+        '{"map":[{"var":"integers"}, {"*":[{"var":""},2]}]}',
+        '{"map":[{"var":"desserts"}, {"var":"qty"}]}',
+    ],
+)
+def test_map(json: str) -> None:
+    Map.model_validate_json(json)

@@ -142,4 +142,10 @@ class Filter(BaseJSONLogicOperation):
     ]
 
 
-class Map(BaseJSONLogicOperation): ...
+class Map(BaseJSONLogicOperation):
+    map: tuple[
+        # An array or an operation that produces an array
+        Union[list[Any], Var, Missing, MissingSome, If, Merge, Filter, "Map"],
+        # The operation to be performed on each element of the array
+        BaseJSONLogicOperation,
+    ]
