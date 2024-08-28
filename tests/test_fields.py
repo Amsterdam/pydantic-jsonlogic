@@ -410,6 +410,10 @@ def test_or(json: str) -> None:
         '{"and" : [ 0, true ]}',
         '{"and" : [ "", true ]}',
         '{"and" : [ "0", true ]}',
+        '{"and":[{">":[3,1]},true]}',
+        '{"and":[{">":[3,1]},false]}',
+        '{"and":[{">":[3,1]},{"!":true}]}',
+        '{"and":[{">":[3,1]},{"<":[1,3]}]}',
     ],
 )
 def test_and(json: str) -> None:
