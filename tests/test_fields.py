@@ -473,6 +473,7 @@ def test_and(json: str) -> None:
         '{"if":[ {">":[1,2]}, "apple", "banana"]}',
         '{"if":[ true, {"cat":["ap","ple"]}, {"cat":["ba","na","na"]} ]}',
         '{"if":[ false, {"cat":["ap","ple"]}, {"cat":["ba","na","na"]} ]}',
+        '{"if":[ {"missing":"a"}, "missed it", "found it" ]}',
     ],
 )
 def test_if(json: str) -> None:
