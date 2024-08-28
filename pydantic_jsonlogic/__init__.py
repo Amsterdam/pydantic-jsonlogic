@@ -1,5 +1,5 @@
 from abc import ABCMeta
-from typing import Any
+from typing import Any, Union
 
 from pydantic import BaseModel, Field
 
@@ -131,3 +131,15 @@ class And(BaseJSONLogicOperation):
 
 class If(BaseJSONLogicOperation):
     if_: list[Any] = Field(validation_alias="if")
+
+
+class Filter(BaseJSONLogicOperation):
+    filter: tuple[
+        # An array or an operation that produces an array
+        Union[list[Any], Var, Missing, MissingSome, If, Merge, "Filter", "Map"],
+        # Something that produces a truthy or falsy result
+        bool | BaseJSONLogicOperation,
+    ]
+
+
+class Map(BaseJSONLogicOperation): ...

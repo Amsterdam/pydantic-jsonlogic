@@ -6,6 +6,7 @@ from pydantic_jsonlogic import (
     Cat,
     Divide,
     Equals,
+    Filter,
     GreaterThan,
     GreaterThanOrEqual,
     If,
@@ -479,3 +480,16 @@ def test_and(json: str) -> None:
 )
 def test_if(json: str) -> None:
     If.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"filter":[{"var":"integers"}, true]}',
+        '{"filter":[{"var":"integers"}, false]}',
+        '{"filter":[{"var":"integers"}, {">=":[{"var":""},2]}]}',
+        '{"filter":[{"var":"integers"}, {"%":[{"var":""},2]}]}',
+    ],
+)
+def test_filter(json: str) -> None:
+    Filter.model_validate_json(json)
