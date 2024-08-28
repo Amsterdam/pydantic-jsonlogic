@@ -149,3 +149,14 @@ class Map(BaseJSONLogicOperation):
         # The operation to be performed on each element of the array
         BaseJSONLogicOperation,
     ]
+
+
+class Reduce(BaseJSONLogicOperation):
+    reduce: tuple[
+        # An array or an operation that produces an array
+        list[Any] | Var | Missing | MissingSome | If | Merge | Filter | Map,
+        # The operation to be performed for each element of the array
+        BaseJSONLogicOperation,
+        # The initial accumulator value
+        Any,
+    ]

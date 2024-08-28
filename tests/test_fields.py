@@ -26,6 +26,7 @@ from pydantic_jsonlogic import (
     NotEquals,
     NotNot,
     Or,
+    Reduce,
     StrictEquals,
     StrictNotEquals,
     Substr,
@@ -506,3 +507,27 @@ def test_filter(json: str) -> None:
 )
 def test_map(json: str) -> None:
     Map.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        """{"reduce":[
+            {"var":"integers"},
+            {"+":[{"var":"current"}, {"var":"accumulator"}]},
+            0
+        ]}""",
+        """{"reduce":[
+            {"var":"integers"},
+            {"+":[{"var":"current"}, {"var":"accumulator"}]},
+            {"var": "start_with"}
+        ]}""",
+        """{"reduce":[
+            {"var":"integers"},
+            {"*":[{"var":"current"}, {"var":"accumulator"}]},
+            1
+        ]}""",
+    ],
+)
+def test_reduce(json: str) -> None:
+    Reduce.model_validate_json(json)
