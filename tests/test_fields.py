@@ -54,6 +54,7 @@ def test_var(json: str) -> None:
         '{"missing":["a"]}',
         '{"missing":"a"}',
         '{"missing":["a","b"]}',
+        '{"missing":{"merge":[ "vin", {"if": [{"var":"financing"}, ["apr"], [] ]} ]} }',
     ],
 )
 def test_missing(json: str) -> None:
@@ -296,6 +297,9 @@ def test_modulo(json: str) -> None:
     [
         '{"in":["Bart",["Bart","Homer","Lisa","Marge","Maggie"]]}',
         '{"in":["i","team"]}',
+        '{"in":[1,[2,3]]}',
+        '{"in":[1,[1,2,3,"a","b"]]}',
+        '{"in":[{"var":"filling"},["apple","cherry"]]}',
     ],
 )
 def test_in(json: str) -> None:
@@ -386,6 +390,11 @@ def test_merge(json: str) -> None:
         '{"or" : [ 0, true ]}',
         '{"or" : [ "", true ]}',
         '{"or" : [ "0", true ]}',
+        '{"or":[{">":[3,1]},true]}',
+        '{"or":[{">":[3,1]},false]}',
+        '{"or":[{">":[3,1]},{"!":true}]}',
+        '{"or":[{">":[3,1]},{"<":[1,3]}]}',
+        '{"or":[{"<":[{"var":"temp"},110]},{"==":[{"var":"pie.filling"},"apple"]}]}',
     ],
 )
 def test_or(json: str) -> None:
@@ -410,6 +419,11 @@ def test_or(json: str) -> None:
         '{"and" : [ 0, true ]}',
         '{"and" : [ "", true ]}',
         '{"and" : [ "0", true ]}',
+        '{"and":[{">":[3,1]},true]}',
+        '{"and":[{">":[3,1]},false]}',
+        '{"and":[{">":[3,1]},{"!":true}]}',
+        '{"and":[{">":[3,1]},{"<":[1,3]}]}',
+        '{"and":[{"<":[{"var":"temp"},110]},{"==":[{"var":"pie.filling"},"apple"]}]}',
     ],
 )
 def test_and(json: str) -> None:
@@ -460,6 +474,7 @@ def test_and(json: str) -> None:
         '{"if":[ {">":[1,2]}, "apple", "banana"]}',
         '{"if":[ true, {"cat":["ap","ple"]}, {"cat":["ba","na","na"]} ]}',
         '{"if":[ false, {"cat":["ap","ple"]}, {"cat":["ba","na","na"]} ]}',
+        '{"if":[ {"missing":"a"}, "missed it", "found it" ]}',
     ],
 )
 def test_if(json: str) -> None:
