@@ -1,0 +1,15 @@
+{
+  "target": {
+    "pydantic-jsonlogic": {
+      "cache-from": [
+        "type=registry,ref=ghcr.io/amsterdam/pydantic-jsonlogic:cache"
+      ],
+      "cache-to": [
+        "type=registry,ref=ghcr.io/amsterdam/pydantic-jsonlogic:cache"
+      ],
+      "output": [
+        "type=docker"
+      ]
+    }
+  }
+}
