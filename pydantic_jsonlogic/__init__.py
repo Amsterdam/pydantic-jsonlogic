@@ -11,8 +11,12 @@ class Var(BaseJSONLogicOperation):
     var: tuple[str] | str | tuple[str, Any] | int | None | list[None]
 
 
+class Merge(BaseJSONLogicOperation):
+    merge: Any
+
+
 class Missing(BaseJSONLogicOperation):
-    missing: list[str] | str
+    missing: list[str] | str | Merge
 
 
 class MissingSome(BaseJSONLogicOperation):
@@ -111,10 +115,6 @@ class Substr(BaseJSONLogicOperation):
 
 class Log(BaseJSONLogicOperation):
     log: int | str | bool | tuple[int | str | bool]
-
-
-class Merge(BaseJSONLogicOperation):
-    merge: Any
 
 
 class Or(BaseJSONLogicOperation):

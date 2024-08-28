@@ -54,6 +54,7 @@ def test_var(json: str) -> None:
         '{"missing":["a"]}',
         '{"missing":"a"}',
         '{"missing":["a","b"]}',
+        '{"missing":{"merge":[ "vin", {"if": [{"var":"financing"}, ["apr"], [] ]} ]} }',
     ],
 )
 def test_missing(json: str) -> None:
