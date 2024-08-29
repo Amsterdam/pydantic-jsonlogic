@@ -2,6 +2,7 @@ import pytest
 
 from pydantic_jsonlogic import (
     Add,
+    All,
     And,
     Cat,
     Divide,
@@ -531,3 +532,20 @@ def test_map(json: str) -> None:
 )
 def test_reduce(json: str) -> None:
     Reduce.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"all":[{"var":"integers"}, {">=":[{"var":""}, 1]}]}',
+        '{"all":[{"var":"integers"}, {"==":[{"var":""}, 1]}]}',
+        '{"all":[{"var":"integers"}, {"<":[{"var":""}, 1]}]}',
+        '{"all":[ {"var":"items"}, {">=":[{"var":"qty"}, 1]}]}',
+        '{"all":[ {"var":"items"}, {">":[{"var":"qty"}, 1]}]}',
+        '{"all":[ {"var":"items"}, {"<":[{"var":"qty"}, 1]}]}',
+        '{"all":[ {"var":"items"}, {">=":[{"var":"qty"}, 1]}]}',
+        '{"all":[[0,1,3], true]}',
+    ],
+)
+def test_all(json: str) -> None:
+    All.model_validate_json(json)
