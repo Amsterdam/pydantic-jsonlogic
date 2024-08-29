@@ -160,3 +160,12 @@ class Reduce(BaseJSONLogicOperation):
         # The initial accumulator value
         Any,
     ]
+
+
+class All(BaseJSONLogicOperation):
+    all: tuple[
+        # An array or an operation that produces an array
+        list[Any] | Var | Missing | MissingSome | If | Merge | Filter | Map,
+        # Something that produces a truthy or falsy result
+        bool | BaseJSONLogicOperation,
+    ]
