@@ -23,6 +23,7 @@ from pydantic_jsonlogic import (
     MissingSome,
     Modulo,
     Multiply,
+    None_,
     Not,
     NotEquals,
     NotNot,
@@ -549,3 +550,20 @@ def test_reduce(json: str) -> None:
 )
 def test_all(json: str) -> None:
     All.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"none":[{"var":"integers"}, {">=":[{"var":""}, 1]}]}',
+        '{"none":[{"var":"integers"}, {"==":[{"var":""}, 1]}]}',
+        '{"none":[{"var":"integers"}, {"<":[{"var":""}, 1]}]}',
+        '{"none":[ {"var":"items"}, {">=":[{"var":"qty"}, 1]}]}',
+        '{"none":[ {"var":"items"}, {">":[{"var":"qty"}, 1]}]}',
+        '{"none":[ {"var":"items"}, {"<":[{"var":"qty"}, 1]}]}',
+        '{"none":[ {"var":"items"}, {">=":[{"var":"qty"}, 1]}]}',
+        '{"none":[[0,1,3], true]}',
+    ],
+)
+def test_none(json: str) -> None:
+    None_.model_validate_json(json)
