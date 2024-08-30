@@ -481,6 +481,18 @@ def test_and(json: str) -> None:
         '{"if":[ true, {"cat":["ap","ple"]}, {"cat":["ba","na","na"]} ]}',
         '{"if":[ false, {"cat":["ap","ple"]}, {"cat":["ba","na","na"]} ]}',
         '{"if":[ {"missing":"a"}, "missed it", "found it" ]}',
+        '{"if": [{"var": "x"}, [{"var": "y"}], 99]}',
+        """{
+            "if": [
+                {"==": [ { "%": [ { "var": "i" }, 15 ] }, 0]},
+                "fizzbuzz",
+                {"==": [ { "%": [ { "var": "i" }, 3 ] }, 0]},
+                "fizz",
+                {"==": [ { "%": [ { "var": "i" }, 5 ] }, 0]},
+                "buzz",
+                { "var": "i" }
+            ]
+        }""",
     ],
 )
 def test_if(json: str) -> None:
@@ -506,6 +518,25 @@ def test_filter(json: str) -> None:
         '{"map":[{"var":"integers"}, {"*":[{"var":""},2]}]}',
         '{"map":[{"var":"integers"}, {"*":[{"var":""},2]}]}',
         '{"map":[{"var":"desserts"}, {"var":"qty"}]}',
+        """{
+          "map": [
+            { "var": "list" },
+            {
+              "if": [
+                { "==": [{ "%": [{ "var": "" }, 15] }, 0] },
+                "fizzbuzz",
+
+                { "==": [{ "%": [{ "var": "" }, 3] }, 0] },
+                "fizz",
+
+                { "==": [{ "%": [{ "var": "" }, 5] }, 0] },
+                "buzz",
+
+                { "var": "" }
+              ]
+            }
+          ]
+        }""",
     ],
 )
 def test_map(json: str) -> None:
