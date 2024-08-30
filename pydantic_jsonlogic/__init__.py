@@ -178,3 +178,12 @@ class None_(BaseJSONLogicOperation):
         # Something that produces a truthy or falsy result
         bool | BaseJSONLogicOperation,
     ]
+
+
+class Some(BaseJSONLogicOperation):
+    some: tuple[
+        # An array or an operation that produces an array
+        list[Any] | Var | Missing | MissingSome | If | Merge | Filter | Map,
+        # Something that produces a truthy or falsy result
+        bool | BaseJSONLogicOperation,
+    ]

@@ -29,6 +29,7 @@ from pydantic_jsonlogic import (
     NotNot,
     Or,
     Reduce,
+    Some,
     StrictEquals,
     StrictNotEquals,
     Substr,
@@ -567,3 +568,20 @@ def test_all(json: str) -> None:
 )
 def test_none(json: str) -> None:
     None_.model_validate_json(json)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"some":[{"var":"integers"}, {">=":[{"var":""}, 1]}]}',
+        '{"some":[{"var":"integers"}, {"==":[{"var":""}, 1]}]}',
+        '{"some":[{"var":"integers"}, {"<":[{"var":""}, 1]}]}',
+        '{"some":[ {"var":"items"}, {">=":[{"var":"qty"}, 1]}]}',
+        '{"some":[ {"var":"items"}, {">":[{"var":"qty"}, 1]}]}',
+        '{"some":[ {"var":"items"}, {"<":[{"var":"qty"}, 1]}]}',
+        '{"some":[ {"var":"items"}, {">=":[{"var":"qty"}, 1]}]}',
+        '{"some":[[0,1,3], true]}',
+    ],
+)
+def test_some(json: str) -> None:
+    Some.model_validate_json(json)
