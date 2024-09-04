@@ -187,3 +187,42 @@ class Some(BaseJSONLogicOperation):
         # Something that produces a truthy or falsy result
         bool | BaseJSONLogicOperation,
     ]
+
+
+JSONLogic = (
+    Add
+    | All
+    | And
+    | Cat
+    | Divide
+    | Equals
+    | Filter
+    | GreaterThan
+    | GreaterThanOrEqual
+    | If
+    | In
+    | LessThan
+    | LessThanOrEqual
+    | Log
+    | Map
+    | Max
+    | Merge
+    | Min
+    | Max
+    | Missing
+    | MissingSome
+    | Modulo
+    | Multiply
+    | None_
+    | Not
+    | NotEquals
+    | NotNot
+    | Or
+    | Reduce
+    | Some
+    | StrictEquals
+    | StrictNotEquals
+    | Substr
+    | Subtract
+    | Var
+)
