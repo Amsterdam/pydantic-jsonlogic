@@ -89,7 +89,7 @@ class Divide(BaseModel):
 
 
 class Modulo(BaseModel):
-    modulo: tuple[int, int] = Field(alias="%")
+    modulo: tuple[int | Var, int] = Field(alias="%")
 
 
 class In(BaseModel):
