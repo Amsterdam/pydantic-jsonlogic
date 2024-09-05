@@ -4,188 +4,175 @@ from typing import Any, Union
 from pydantic import BaseModel, Field
 
 
-class BaseJSONLogicOperation(BaseModel, metaclass=ABCMeta): ...
-
-
-class Var(BaseJSONLogicOperation):
+class Var(BaseModel):
     var: tuple[str] | str | tuple[str, Any] | int | None | list[None]
 
 
-class Merge(BaseJSONLogicOperation):
+class Merge(BaseModel):
     merge: Any
 
 
-class Missing(BaseJSONLogicOperation):
+class Missing(BaseModel):
     missing: list[str] | str | Merge
 
 
-class MissingSome(BaseJSONLogicOperation):
+class MissingSome(BaseModel):
     missing_some: tuple[int, list[str]]
 
 
-class Equals(BaseJSONLogicOperation):
-    equals: tuple[Any, Any] = Field(validation_alias="==")
+class Equals(BaseModel):
+    equals: tuple[Any, Any] = Field(alias="==")
 
 
-class StrictEquals(BaseJSONLogicOperation):
-    strict_equals: tuple[Any, Any] = Field(validation_alias="===")
+class StrictEquals(BaseModel):
+    strict_equals: tuple[Any, Any] = Field(alias="===")
 
 
-class NotEquals(BaseJSONLogicOperation):
-    not_equals: tuple[Any, Any] = Field(validation_alias="!=")
+class NotEquals(BaseModel):
+    not_equals: tuple[Any, Any] = Field(alias="!=")
 
 
-class StrictNotEquals(BaseJSONLogicOperation):
-    strict_not_equals: tuple[Any, Any] = Field(validation_alias="!==")
+class StrictNotEquals(BaseModel):
+    strict_not_equals: tuple[Any, Any] = Field(alias="!==")
 
 
-class Not(BaseJSONLogicOperation):
+class Not(BaseModel):
     not_: tuple[bool | int | str] | bool | int | str | tuple[list[None]] = Field(
-        validation_alias="!"
+        alias="!"
     )
 
 
-class NotNot(BaseJSONLogicOperation):
-    not_not: tuple[int | str | list[None]] = Field(validation_alias="!!")
+class NotNot(BaseModel):
+    not_not: tuple[int | str | list[None]] = Field(alias="!!")
 
 
-class GreaterThan(BaseJSONLogicOperation):
-    greater_than: tuple[int | str, int | str] = Field(validation_alias=">")
+class GreaterThan(BaseModel):
+    greater_than: tuple[int | str, int | str] = Field(alias=">")
 
 
-class GreaterThanOrEqual(BaseJSONLogicOperation):
-    greater_than_or_equal: tuple[int | str, int | str] = Field(validation_alias=">=")
+class GreaterThanOrEqual(BaseModel):
+    greater_than_or_equal: tuple[int | str | Var, int | str] = Field(alias=">=")
 
 
-class LessThan(BaseJSONLogicOperation):
-    less_than: tuple[int | str, int | str] | tuple[int, int, int] = Field(
-        validation_alias="<"
-    )
+class LessThan(BaseModel):
+    less_than: tuple[int | str, int | str] | tuple[int, int, int] = Field(alias="<")
 
 
-class LessThanOrEqual(BaseJSONLogicOperation):
+class LessThanOrEqual(BaseModel):
     less_than_or_equal: tuple[int | str, int | str] | tuple[int, int, int] = Field(
-        validation_alias="<="
+        alias="<="
     )
 
 
-class Max(BaseJSONLogicOperation):
+class Max(BaseModel):
     max: list[int]
 
 
-class Min(BaseJSONLogicOperation):
+class Min(BaseModel):
     min: list[int]
 
 
-class Add(BaseJSONLogicOperation):
-    add: list[int | str] = Field(validation_alias="+")
+class Add(BaseModel):
+    add: list[int | str] = Field(alias="+")
 
 
-class Subtract(BaseJSONLogicOperation):
-    subtract: tuple[int | str] | tuple[int | str, int | str] = Field(
-        validation_alias="-"
-    )
+class Subtract(BaseModel):
+    subtract: tuple[int | str] | tuple[int | str, int | str] = Field(alias="-")
 
 
-class Multiply(BaseJSONLogicOperation):
-    multiply: list[int | str] = Field(validation_alias="*")
+class Multiply(BaseModel):
+    multiply: list[int | str] = Field(alias="*")
 
 
-class Divide(BaseJSONLogicOperation):
-    divide: tuple[int | str, int | str] = Field(validation_alias="/")
+class Divide(BaseModel):
+    divide: tuple[int | str, int | str] = Field(alias="/")
 
 
-class Modulo(BaseJSONLogicOperation):
-    modulo: tuple[int, int] = Field(validation_alias="%")
+class Modulo(BaseModel):
+    modulo: tuple[int, int] = Field(alias="%")
 
 
-class In(BaseJSONLogicOperation):
-    in_: tuple[int | str | BaseJSONLogicOperation, list[int | str] | str] = Field(
-        validation_alias="in"
-    )
+class In(BaseModel):
+    in_: tuple[Union[int, str, "JSONLogic"], list[int | str] | str] = Field(alias="in")
 
 
-class Cat(BaseJSONLogicOperation):
+class Cat(BaseModel):
     cat: int | str | list[int | str]
 
 
-class Substr(BaseJSONLogicOperation):
+class Substr(BaseModel):
     substr: tuple[str, int] | tuple[str, int, int]
 
 
-class Log(BaseJSONLogicOperation):
+class Log(BaseModel):
     log: int | str | bool | tuple[int | str | bool]
 
 
-class Or(BaseJSONLogicOperation):
-    or_: list[bool | int | str | list[None] | BaseJSONLogicOperation] = Field(
-        validation_alias="or"
-    )
+class Or(BaseModel):
+    or_: list[Union[bool, int, str, list[None], "JSONLogic"]] = Field(alias="or")
 
 
-class And(BaseJSONLogicOperation):
-    and_: list[bool | int | str | list[None] | BaseJSONLogicOperation] = Field(
-        validation_alias="and"
-    )
+class And(BaseModel):
+    and_: list[Union[bool, int, str, list[None], "JSONLogic"]] = Field(alias="and")
 
 
-class If(BaseJSONLogicOperation):
-    if_: list[Any] = Field(validation_alias="if")
+class If(BaseModel):
+    if_: list[Any] = Field(alias="if")
 
 
-class Filter(BaseJSONLogicOperation):
+class Filter(BaseModel):
     filter: tuple[
         # An array or an operation that produces an array
         Union[list[Any], Var, Missing, MissingSome, If, Merge, "Filter", "Map"],
         # Something that produces a truthy or falsy result
-        bool | BaseJSONLogicOperation,
+        Union[bool, "JSONLogic"],
     ]
 
 
-class Map(BaseJSONLogicOperation):
+class Map(BaseModel):
     map: tuple[
         # An array or an operation that produces an array
         Union[list[Any], Var, Missing, MissingSome, If, Merge, Filter, "Map"],
         # The operation to be performed on each element of the array
-        BaseJSONLogicOperation,
+        "JSONLogic",
     ]
 
 
-class Reduce(BaseJSONLogicOperation):
+class Reduce(BaseModel):
     reduce: tuple[
         # An array or an operation that produces an array
         list[Any] | Var | Missing | MissingSome | If | Merge | Filter | Map,
         # The operation to be performed for each element of the array
-        BaseJSONLogicOperation,
+        "JSONLogic",
         # The initial accumulator value
         Any,
     ]
 
 
-class All(BaseJSONLogicOperation):
+class All(BaseModel):
     all: tuple[
         # An array or an operation that produces an array
         list[Any] | Var | Missing | MissingSome | If | Merge | Filter | Map,
         # Something that produces a truthy or falsy result
-        bool | BaseJSONLogicOperation,
+        Union[bool, "JSONLogic"],
     ]
 
 
-class None_(BaseJSONLogicOperation):
+class None_(BaseModel):
     none: tuple[
         # An array or an operation that produces an array
         list[Any] | Var | Missing | MissingSome | If | Merge | Filter | Map,
         # Something that produces a truthy or falsy result
-        bool | BaseJSONLogicOperation,
+        Union[bool, "JSONLogic"],
     ]
 
 
-class Some(BaseJSONLogicOperation):
+class Some(BaseModel):
     some: tuple[
         # An array or an operation that produces an array
         list[Any] | Var | Missing | MissingSome | If | Merge | Filter | Map,
         # Something that produces a truthy or falsy result
-        bool | BaseJSONLogicOperation,
+        Union[bool, "JSONLogic"],
     ]
 
 
