@@ -73,7 +73,7 @@ class Min(BaseModel):
 
 
 class Add(BaseModel):
-    add: list[int | str] = Field(alias="+")
+    add: list[int | str | Var] = Field(alias="+")
 
 
 class Subtract(BaseModel):
@@ -81,7 +81,7 @@ class Subtract(BaseModel):
 
 
 class Multiply(BaseModel):
-    multiply: list[int | str] = Field(alias="*")
+    multiply: list[int | str | Var] = Field(alias="*")
 
 
 class Divide(BaseModel):
