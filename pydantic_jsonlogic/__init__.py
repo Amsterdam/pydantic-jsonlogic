@@ -47,7 +47,7 @@ class NotNot(BaseModel):
 
 
 class GreaterThan(BaseModel):
-    greater_than: tuple[int | str, int | str] = Field(alias=">")
+    greater_than: tuple[int | str | Var, int | str] = Field(alias=">")
 
 
 class GreaterThanOrEqual(BaseModel):
@@ -55,7 +55,7 @@ class GreaterThanOrEqual(BaseModel):
 
 
 class LessThan(BaseModel):
-    less_than: tuple[int | str, int | str] | tuple[int, int, int] = Field(alias="<")
+    less_than: tuple[int | str | Var, int | str] | tuple[int, int, int] = Field(alias="<")
 
 
 class LessThanOrEqual(BaseModel):
