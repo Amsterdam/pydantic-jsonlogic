@@ -43,14 +43,15 @@ from pydantic_jsonlogic import (
     [
         '{"var":["a"]}',
         '{"var":"a"}',
-        '{"var":["a", 1]}',
+        '{"var":["a",1]}',
         '{"var":1}',
         '{"var":null}',
         '{"var":[]}',
     ],
 )
 def test_var(json: str) -> None:
-    Var.model_validate_json(json)
+    model = Var.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -60,22 +61,24 @@ def test_var(json: str) -> None:
         '{"missing":["a"]}',
         '{"missing":"a"}',
         '{"missing":["a","b"]}',
-        '{"missing":{"merge":[ "vin", {"if": [{"var":"financing"}, ["apr"], [] ]} ]} }',
+        '{"missing":{"merge":["vin",{"if":[{"var":"financing"},["apr"],[]]}]}}',
     ],
 )
 def test_missing(json: str) -> None:
-    Missing.model_validate_json(json)
+    model = Missing.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
     "json",
     [
-        '{"missing_some":[1, ["a", "b"]]}',
-        '{"missing_some":[2, ["a", "b", "c"]]}',
+        '{"missing_some":[1,["a","b"]]}',
+        '{"missing_some":[2,["a","b","c"]]}',
     ],
 )
 def test_missing_some(json: str) -> None:
-    MissingSome.model_validate_json(json)
+    model = MissingSome.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -87,7 +90,8 @@ def test_missing_some(json: str) -> None:
     ],
 )
 def test_equals(json: str) -> None:
-    Equals.model_validate_json(json)
+    model = Equals.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -101,7 +105,8 @@ def test_equals(json: str) -> None:
     ],
 )
 def test_strict_equals(json: str) -> None:
-    StrictEquals.model_validate_json(json)
+    model = StrictEquals.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -113,7 +118,8 @@ def test_strict_equals(json: str) -> None:
     ],
 )
 def test_not_equals(json: str) -> None:
-    NotEquals.model_validate_json(json)
+    model = NotEquals.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -125,7 +131,8 @@ def test_not_equals(json: str) -> None:
     ],
 )
 def test_strict_not_equals(json: str) -> None:
-    StrictNotEquals.model_validate_json(json)
+    model = StrictNotEquals.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -137,30 +144,32 @@ def test_strict_not_equals(json: str) -> None:
         '{"!":true}',
         '{"!":0}',
         '{"!":1}',
-        '{"!" : [ [] ]}',
-        '{"!" : [ 0 ]}',
-        '{"!" : [ "" ]}',
-        '{"!" : [ "0" ]}',
+        '{"!":[[]]}',
+        '{"!":[0]}',
+        '{"!":[""]}',
+        '{"!":["0"]}',
     ],
 )
 def test_not(json: str) -> None:
-    Not.model_validate_json(json)
+    model = Not.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
     "json",
     [
-        '{"!!" : [ [] ]}',
-        '{"!!" : [ 0 ]}',
-        '{"!!" : [ "" ]}',
-        '{"!!" : [ "0" ]}',
-        '{"!!" : [ [] ]}',
-        '{"!!" : [ "" ]}',
-        '{"!!" : [ "0" ]}',
+        '{"!!":[[]]}',
+        '{"!!":[0]}',
+        '{"!!":[""]}',
+        '{"!!":["0"]}',
+        '{"!!":[[]]}',
+        '{"!!":[""]}',
+        '{"!!":["0"]}',
     ],
 )
 def test_not_not(json: str) -> None:
-    NotNot.model_validate_json(json)
+    model = NotNot.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -173,7 +182,8 @@ def test_not_not(json: str) -> None:
     ],
 )
 def test_greater_than(json: str) -> None:
-    GreaterThan.model_validate_json(json)
+    model = GreaterThan.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -186,7 +196,8 @@ def test_greater_than(json: str) -> None:
     ],
 )
 def test_greater_than_or_equals(json: str) -> None:
-    GreaterThanOrEqual.model_validate_json(json)
+    model = GreaterThanOrEqual.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -200,7 +211,8 @@ def test_greater_than_or_equals(json: str) -> None:
     ],
 )
 def test_less_than(json: str) -> None:
-    LessThan.model_validate_json(json)
+    model = LessThan.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -214,7 +226,8 @@ def test_less_than(json: str) -> None:
     ],
 )
 def test_less_than_or_equal(json: str) -> None:
-    LessThanOrEqual.model_validate_json(json)
+    model = LessThanOrEqual.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -225,7 +238,8 @@ def test_less_than_or_equal(json: str) -> None:
     ],
 )
 def test_max(json: str) -> None:
-    Max.model_validate_json(json)
+    model = Max.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -236,7 +250,8 @@ def test_max(json: str) -> None:
     ],
 )
 def test_min(json: str) -> None:
-    Min.model_validate_json(json)
+    model = Min.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -249,7 +264,8 @@ def test_min(json: str) -> None:
     ],
 )
 def test_add(json: str) -> None:
-    Add.model_validate_json(json)
+    model = Add.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -261,7 +277,8 @@ def test_add(json: str) -> None:
     ],
 )
 def test_subtract(json: str) -> None:
-    Subtract.model_validate_json(json)
+    model = Subtract.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -274,7 +291,8 @@ def test_subtract(json: str) -> None:
     ],
 )
 def test_multiply(json: str) -> None:
-    Multiply.model_validate_json(json)
+    model = Multiply.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -285,7 +303,8 @@ def test_multiply(json: str) -> None:
     ],
 )
 def test_divide(json: str) -> None:
-    Divide.model_validate_json(json)
+    model = Divide.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -295,7 +314,8 @@ def test_divide(json: str) -> None:
     ],
 )
 def test_modulo(json: str) -> None:
-    Modulo.model_validate_json(json)
+    model = Modulo.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -309,7 +329,8 @@ def test_modulo(json: str) -> None:
     ],
 )
 def test_in(json: str) -> None:
-    In.model_validate_json(json)
+    model = In.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -324,30 +345,32 @@ def test_in(json: str) -> None:
     ],
 )
 def test_cat(json: str) -> None:
-    Cat.model_validate_json(json)
+    model = Cat.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
     "json",
     [
-        '{"substr":["jsonlogic", 4]}',
-        '{"substr":["jsonlogic", -5]}',
-        '{"substr":["jsonlogic", 0, 1]}',
-        '{"substr":["jsonlogic", -1, 1]}',
-        '{"substr":["jsonlogic", 4, 5]}',
-        '{"substr":["jsonlogic", -5, 5]}',
-        '{"substr":["jsonlogic", -5, -2]}',
-        '{"substr":["jsonlogic", 1, -5]}',
+        '{"substr":["jsonlogic",4]}',
+        '{"substr":["jsonlogic",-5]}',
+        '{"substr":["jsonlogic",0,1]}',
+        '{"substr":["jsonlogic",-1,1]}',
+        '{"substr":["jsonlogic",4,5]}',
+        '{"substr":["jsonlogic",-5,5]}',
+        '{"substr":["jsonlogic",-5,-2]}',
+        '{"substr":["jsonlogic",1,-5]}',
     ],
 )
 def test_substr(json: str) -> None:
-    Substr.model_validate_json(json)
+    model = Substr.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
     "json",
     [
-        '{"log": "hello"}',
+        '{"log":"hello"}',
         '{"log":["hello"]}',
         '{"log":1}',
         '{"log":false}',
@@ -356,7 +379,8 @@ def test_substr(json: str) -> None:
     ],
 )
 def test_log(json: str) -> None:
-    Log.model_validate_json(json)
+    model = Log.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -365,17 +389,18 @@ def test_log(json: str) -> None:
         '{"merge":[]}',
         '{"merge":[[1]]}',
         '{"merge":[[1],[]]}',
-        '{"merge":[[1], [2]]}',
-        '{"merge":[[1], [2], [3]]}',
-        '{"merge":[[1, 2], [3]]}',
-        '{"merge":[[1], [2, 3]]}',
+        '{"merge":[[1],[2]]}',
+        '{"merge":[[1],[2],[3]]}',
+        '{"merge":[[1,2],[3]]}',
+        '{"merge":[[1],[2,3]]}',
         '{"merge":1}',
         '{"merge":[1,2]}',
         '{"merge":[1,[2]]}',
     ],
 )
 def test_merge(json: str) -> None:
-    Merge.model_validate_json(json)
+    model = Merge.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -392,10 +417,10 @@ def test_merge(json: str) -> None:
         '{"or":[1,3]}',
         '{"or":[3,false]}',
         '{"or":[false,3]}',
-        '{"or" : [ [], true ]}',
-        '{"or" : [ 0, true ]}',
-        '{"or" : [ "", true ]}',
-        '{"or" : [ "0", true ]}',
+        '{"or":[[],true]}',
+        '{"or":[0,true]}',
+        '{"or":["",true]}',
+        '{"or":["0",true]}',
         '{"or":[{">":[3,1]},true]}',
         '{"or":[{">":[3,1]},false]}',
         '{"or":[{">":[3,1]},{"!":true}]}',
@@ -404,7 +429,8 @@ def test_merge(json: str) -> None:
     ],
 )
 def test_or(json: str) -> None:
-    Or.model_validate_json(json)
+    model = Or.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -421,10 +447,10 @@ def test_or(json: str) -> None:
         '{"and":[1,3]}',
         '{"and":[3,false]}',
         '{"and":[false,3]}',
-        '{"and" : [ [], true ]}',
-        '{"and" : [ 0, true ]}',
-        '{"and" : [ "", true ]}',
-        '{"and" : [ "0", true ]}',
+        '{"and":[[],true]}',
+        '{"and":[0,true]}',
+        '{"and":["",true]}',
+        '{"and":["0",true]}',
         '{"and":[{">":[3,1]},true]}',
         '{"and":[{">":[3,1]},false]}',
         '{"and":[{">":[3,1]},{"!":true}]}',
@@ -443,176 +469,142 @@ def test_and(json: str) -> None:
         '{"if":[true]}',
         '{"if":[false]}',
         '{"if":["apple"]}',
-        '{"if":[true, "apple"]}',
-        '{"if":[false, "apple"]}',
-        '{"if":[true, "apple", "banana"]}',
-        '{"if":[false, "apple", "banana"]}',
-        '{"if":[ [], "apple", "banana"]}',
-        '{"if":[ [1], "apple", "banana"]}',
-        '{"if":[ [1,2,3,4], "apple", "banana"]}',
-        '{"if":[ "", "apple", "banana"]}',
-        '{"if":[ "zucchini", "apple", "banana"]}',
-        '{"if":[ "0", "apple", "banana"]}',
-        '{"if":[ 0, "apple", "banana"]}',
-        '{"if":[ 1, "apple", "banana"]}',
-        '{"if":[ 3.1416, "apple", "banana"]}',
-        '{"if":[ -1, "apple", "banana"]}',
-        '{"if":[true, "apple", true, "banana"]}',
-        '{"if":[true, "apple", false, "banana"]}',
-        '{"if":[false, "apple", true, "banana"]}',
-        '{"if":[false, "apple", false, "banana"]}',
-        '{"if":[true, "apple", true, "banana", "carrot"]}',
-        '{"if":[true, "apple", false, "banana", "carrot"]}',
-        '{"if":[false, "apple", true, "banana", "carrot"]}',
-        '{"if":[false, "apple", false, "banana", "carrot"]}',
-        '{"if":[false, "apple", false, "banana", false, "carrot"]}',
-        '{"if":[false, "apple", false, "banana", false, "carrot", "date"]}',
-        '{"if":[false, "apple", false, "banana", true, "carrot", "date"]}',
-        '{"if":[false, "apple", true, "banana", false, "carrot", "date"]}',
-        '{"if":[false, "apple", true, "banana", true, "carrot", "date"]}',
-        '{"if":[true, "apple", false, "banana", false, "carrot", "date"]}',
-        '{"if":[true, "apple", false, "banana", true, "carrot", "date"]}',
-        '{"if":[true, "apple", true, "banana", false, "carrot", "date"]}',
-        '{"if":[true, "apple", true, "banana", true, "carrot", "date"]}',
-        '{"if":[ {"+":"0"}, "apple", "banana"]}',
-        '{"if":[ {"+":"1"}, "apple", "banana"]}',
-        '{"if":[ {">":[2,1]}, "apple", "banana"]}',
-        '{"if":[ {">":[1,2]}, "apple", "banana"]}',
-        '{"if":[ true, {"cat":["ap","ple"]}, {"cat":["ba","na","na"]} ]}',
-        '{"if":[ false, {"cat":["ap","ple"]}, {"cat":["ba","na","na"]} ]}',
-        '{"if":[ {"missing":"a"}, "missed it", "found it" ]}',
-        '{"if": [{"var": "x"}, [{"var": "y"}], 99]}',
-        """{
-            "if": [
-                {"==": [ { "%": [ { "var": "i" }, 15 ] }, 0]},
-                "fizzbuzz",
-                {"==": [ { "%": [ { "var": "i" }, 3 ] }, 0]},
-                "fizz",
-                {"==": [ { "%": [ { "var": "i" }, 5 ] }, 0]},
-                "buzz",
-                { "var": "i" }
-            ]
-        }""",
+        '{"if":[true,"apple"]}',
+        '{"if":[false,"apple"]}',
+        '{"if":[true,"apple","banana"]}',
+        '{"if":[false,"apple","banana"]}',
+        '{"if":[[],"apple","banana"]}',
+        '{"if":[[1],"apple","banana"]}',
+        '{"if":[[1,2,3,4],"apple","banana"]}',
+        '{"if":["","apple","banana"]}',
+        '{"if":["zucchini","apple","banana"]}',
+        '{"if":["0","apple","banana"]}',
+        '{"if":[0,"apple","banana"]}',
+        '{"if":[1,"apple","banana"]}',
+        '{"if":[3.1416,"apple","banana"]}',
+        '{"if":[-1,"apple","banana"]}',
+        '{"if":[true,"apple",true,"banana"]}',
+        '{"if":[true,"apple",false,"banana"]}',
+        '{"if":[false,"apple",true,"banana"]}',
+        '{"if":[false,"apple",false,"banana"]}',
+        '{"if":[true,"apple",true,"banana","carrot"]}',
+        '{"if":[true,"apple",false,"banana","carrot"]}',
+        '{"if":[false,"apple",true,"banana","carrot"]}',
+        '{"if":[false,"apple",false,"banana","carrot"]}',
+        '{"if":[false,"apple",false,"banana",false,"carrot"]}',
+        '{"if":[false,"apple",false,"banana",false,"carrot","date"]}',
+        '{"if":[false,"apple",false,"banana",true,"carrot","date"]}',
+        '{"if":[false,"apple",true,"banana",false,"carrot","date"]}',
+        '{"if":[false,"apple",true,"banana",true,"carrot","date"]}',
+        '{"if":[true,"apple",false,"banana",false,"carrot","date"]}',
+        '{"if":[true,"apple",false,"banana",true,"carrot","date"]}',
+        '{"if":[true,"apple",true,"banana",false,"carrot","date"]}',
+        '{"if":[true,"apple",true,"banana",true,"carrot","date"]}',
+        '{"if":[{"+":"0"},"apple","banana"]}',
+        '{"if":[{"+":"1"},"apple","banana"]}',
+        '{"if":[{">":[2,1]},"apple","banana"]}',
+        '{"if":[{">":[1,2]},"apple","banana"]}',
+        '{"if":[true,{"cat":["ap","ple"]},{"cat":["ba","na","na"]}]}',
+        '{"if":[false,{"cat":["ap","ple"]},{"cat":["ba","na","na"]}]}',
+        '{"if":[{"missing":"a"},"missedit","foundit"]}',
+        '{"if":[{"var":"x"},[{"var":"y"}],99]}',
+        '{"if":[{"==":[{"%":[{"var":"i"},15]},0]},"fizzbuzz",{"==":[{"%":[{"var":"i"},3]},0]},"fizz",{"==":[{"%":[{"var":"i"},5]},0]},"buzz",{"var":"i"}]}',
     ],
 )
 def test_if(json: str) -> None:
-    If.model_validate_json(json)
+    model = If.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
     "json",
     [
-        '{"filter":[{"var":"integers"}, true]}',
-        '{"filter":[{"var":"integers"}, false]}',
-        '{"filter":[{"var":"integers"}, {">=":[{"var":""},2]}]}',
-        '{"filter":[{"var":"integers"}, {"%":[{"var":""},2]}]}',
+        '{"filter":[{"var":"integers"},true]}',
+        '{"filter":[{"var":"integers"},false]}',
+        '{"filter":[{"var":"integers"},{">=":[{"var":""},2]}]}',
+        '{"filter":[{"var":"integers"},{"%":[{"var":""},2]}]}',
     ],
 )
 def test_filter(json: str) -> None:
-    Filter.model_validate_json(json)
+    model = Filter.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
     "json",
     [
-        '{"map":[{"var":"integers"}, {"*":[{"var":""},2]}]}',
-        '{"map":[{"var":"integers"}, {"*":[{"var":""},2]}]}',
-        '{"map":[{"var":"desserts"}, {"var":"qty"}]}',
-        """{
-          "map": [
-            { "var": "list" },
-            {
-              "if": [
-                { "==": [{ "%": [{ "var": "" }, 15] }, 0] },
-                "fizzbuzz",
-
-                { "==": [{ "%": [{ "var": "" }, 3] }, 0] },
-                "fizz",
-
-                { "==": [{ "%": [{ "var": "" }, 5] }, 0] },
-                "buzz",
-
-                { "var": "" }
-              ]
-            }
-          ]
-        }""",
+        '{"map":[{"var":"integers"},{"*":[{"var":""},2]}]}',
+        '{"map":[{"var":"desserts"},{"var":"qty"}]}',
+        '{"map":[{"var":"list"},{"if":[{"==":[{"%":[{"var":""},15]},0]},"fizzbuzz",{"==":[{"%":[{"var":""},3]},0]},"fizz",{"==":[{"%":[{"var":""},5]},0]},"buzz",{"var":""}]}]}',
     ],
 )
 def test_map(json: str) -> None:
-    Map.model_validate_json(json)
+    model = Map.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
     "json",
     [
-        """{"reduce":[
-            {"var":"integers"},
-            {"+":[{"var":"current"}, {"var":"accumulator"}]},
-            0
-        ]}""",
-        """{"reduce":[
-            {"var":"integers"},
-            {"+":[{"var":"current"}, {"var":"accumulator"}]},
-            {"var": "start_with"}
-        ]}""",
-        """{"reduce":[
-            {"var":"integers"},
-            {"*":[{"var":"current"}, {"var":"accumulator"}]},
-            1
-        ]}""",
+        '{"reduce":[{"var":"integers"},{"+":[{"var":"current"},{"var":"accumulator"}]},0]}',
+        '{"reduce":[{"var":"integers"},{"+":[{"var":"current"},{"var":"accumulator"}]},{"var":"start_with"}]}',
+        '{"reduce":[{"var":"integers"},{"*":[{"var":"current"},{"var":"accumulator"}]},1]}',
     ],
 )
 def test_reduce(json: str) -> None:
-    Reduce.model_validate_json(json)
+    model = Reduce.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
     "json",
     [
-        '{"all":[{"var":"integers"}, {">=":[{"var":""}, 1]}]}',
-        '{"all":[{"var":"integers"}, {"==":[{"var":""}, 1]}]}',
-        '{"all":[{"var":"integers"}, {"<":[{"var":""}, 1]}]}',
-        '{"all":[ {"var":"items"}, {">=":[{"var":"qty"}, 1]}]}',
-        '{"all":[ {"var":"items"}, {">":[{"var":"qty"}, 1]}]}',
-        '{"all":[ {"var":"items"}, {"<":[{"var":"qty"}, 1]}]}',
-        '{"all":[ {"var":"items"}, {">=":[{"var":"qty"}, 1]}]}',
-        '{"all":[[0,1,3], true]}',
+        '{"all":[{"var":"integers"},{">=":[{"var":""},1]}]}',
+        '{"all":[{"var":"integers"},{"==":[{"var":""},1]}]}',
+        '{"all":[{"var":"integers"},{"<":[{"var":""},1]}]}',
+        '{"all":[{"var":"items"},{">=":[{"var":"qty"},1]}]}',
+        '{"all":[{"var":"items"},{">":[{"var":"qty"},1]}]}',
+        '{"all":[{"var":"items"},{"<":[{"var":"qty"},1]}]}',
+        '{"all":[{"var":"items"},{">=":[{"var":"qty"},1]}]}',
+        '{"all":[[0,1,3],true]}',
     ],
 )
 def test_all(json: str) -> None:
-    All.model_validate_json(json)
+    model = All.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
     "json",
     [
-        '{"none":[{"var":"integers"}, {">=":[{"var":""}, 1]}]}',
-        '{"none":[{"var":"integers"}, {"==":[{"var":""}, 1]}]}',
-        '{"none":[{"var":"integers"}, {"<":[{"var":""}, 1]}]}',
-        '{"none":[ {"var":"items"}, {">=":[{"var":"qty"}, 1]}]}',
-        '{"none":[ {"var":"items"}, {">":[{"var":"qty"}, 1]}]}',
-        '{"none":[ {"var":"items"}, {"<":[{"var":"qty"}, 1]}]}',
-        '{"none":[ {"var":"items"}, {">=":[{"var":"qty"}, 1]}]}',
-        '{"none":[[0,1,3], true]}',
+        '{"none":[{"var":"integers"},{">=":[{"var":""},1]}]}',
+        '{"none":[{"var":"integers"},{"==":[{"var":""},1]}]}',
+        '{"none":[{"var":"integers"},{"<":[{"var":""},1]}]}',
+        '{"none":[{"var":"items"},{">=":[{"var":"qty"},1]}]}',
+        '{"none":[{"var":"items"},{">":[{"var":"qty"},1]}]}',
+        '{"none":[{"var":"items"},{"<":[{"var":"qty"},1]}]}',
+        '{"none":[{"var":"items"},{">=":[{"var":"qty"},1]}]}',
+        '{"none":[[0,1,3],true]}',
     ],
 )
 def test_none(json: str) -> None:
-    None_.model_validate_json(json)
+    model = None_.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
     "json",
     [
-        '{"some":[{"var":"integers"}, {">=":[{"var":""}, 1]}]}',
-        '{"some":[{"var":"integers"}, {"==":[{"var":""}, 1]}]}',
-        '{"some":[{"var":"integers"}, {"<":[{"var":""}, 1]}]}',
-        '{"some":[ {"var":"items"}, {">=":[{"var":"qty"}, 1]}]}',
-        '{"some":[ {"var":"items"}, {">":[{"var":"qty"}, 1]}]}',
-        '{"some":[ {"var":"items"}, {"<":[{"var":"qty"}, 1]}]}',
-        '{"some":[ {"var":"items"}, {">=":[{"var":"qty"}, 1]}]}',
-        '{"some":[[0,1,3], true]}',
+        '{"some":[{"var":"integers"},{">=":[{"var":""},1]}]}',
+        '{"some":[{"var":"integers"},{"==":[{"var":""},1]}]}',
+        '{"some":[{"var":"integers"},{"<":[{"var":""},1]}]}',
+        '{"some":[{"var":"items"},{">=":[{"var":"qty"},1]}]}',
+        '{"some":[{"var":"items"},{">":[{"var":"qty"},1]}]}',
+        '{"some":[{"var":"items"},{"<":[{"var":"qty"},1]}]}',
+        '{"some":[{"var":"items"},{">=":[{"var":"qty"},1]}]}',
+        '{"some":[[0,1,3],true]}',
     ],
 )
 def test_some(json: str) -> None:
-    Some.model_validate_json(json)
+    model = Some.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
