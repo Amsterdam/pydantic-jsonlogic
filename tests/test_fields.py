@@ -43,14 +43,15 @@ from pydantic_jsonlogic import (
     [
         '{"var":["a"]}',
         '{"var":"a"}',
-        '{"var":["a", 1]}',
+        '{"var":["a",1]}',
         '{"var":1}',
         '{"var":null}',
         '{"var":[]}',
     ],
 )
 def test_var(json: str) -> None:
-    Var.model_validate_json(json)
+    model = Var.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
@@ -515,7 +516,6 @@ def test_filter(json: str) -> None:
 @pytest.mark.parametrize(
     "json",
     [
-        '{"map":[{"var":"integers"}, {"*":[{"var":""},2]}]}',
         '{"map":[{"var":"integers"}, {"*":[{"var":""},2]}]}',
         '{"map":[{"var":"desserts"}, {"var":"qty"}]}',
         """{
