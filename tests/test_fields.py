@@ -61,11 +61,12 @@ def test_var(json: str) -> None:
         '{"missing":["a"]}',
         '{"missing":"a"}',
         '{"missing":["a","b"]}',
-        '{"missing":{"merge":[ "vin", {"if": [{"var":"financing"}, ["apr"], [] ]} ]} }',
+        '{"missing":{"merge":["vin",{"if":[{"var":"financing"},["apr"],[]]}]}}',
     ],
 )
 def test_missing(json: str) -> None:
-    Missing.model_validate_json(json)
+    model = Missing.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
 
 
 @pytest.mark.parametrize(
