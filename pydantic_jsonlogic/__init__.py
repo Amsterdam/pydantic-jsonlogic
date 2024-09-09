@@ -55,7 +55,9 @@ class GreaterThanOrEqual(BaseModel):
 
 
 class LessThan(BaseModel):
-    less_than: tuple[int | str | Var, int | str] | tuple[int, int, int] = Field(alias="<")
+    less_than: tuple[int | str | Var, int | str] | tuple[int, int, int] = Field(
+        alias="<"
+    )
 
 
 class LessThanOrEqual(BaseModel):
