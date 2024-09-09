@@ -8,7 +8,7 @@ class SomeModel(BaseModel):
 
 
 def test_model_integration() -> None:
-    model = SomeModel.model_validate_json(
-        '{"json_logic": {"all":[{"var":"integers"}, {">=":[{"var":""}, 1]}]}}'
-    )
+    json = '{"json_logic":{"all":[{"var":"integers"},{">=":[{"var":""},1]}]}}'
+    model = SomeModel.model_validate_json(json)
     assert isinstance(model.json_logic, All)
+    assert model.model_dump_json(by_alias=True) == json
