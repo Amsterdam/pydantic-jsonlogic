@@ -10,6 +10,6 @@ jobs:
     steps:
       - uses: actions/delete-package-versions@v5
         with:
-          package-name: pydantic-jsonlogic
+          package-name: 'pydantic-jsonlogic'
           package-type: 'docker'
           min-versions-to-keep: 2
