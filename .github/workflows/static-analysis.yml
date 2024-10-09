@@ -63,7 +63,7 @@ jobs:
         run: poetry install
 
       - name: isort
-        run: poetry run isort .
+        run: poetry run isort . --check
 
   MyPy:
     runs-on: ubuntu-latest
