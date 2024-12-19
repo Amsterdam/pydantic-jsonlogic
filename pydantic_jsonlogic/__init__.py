@@ -1,11 +1,12 @@
-from abc import ABCMeta
 from typing import Any, Union
 
 from pydantic import BaseModel, Field
 
+Number = int | float
+
 
 class Var(BaseModel):
-    var: tuple[str] | str | tuple[str, Any] | int | None | list[None]
+    var: tuple[str] | str | tuple[str, Any] | Number | None | list[None]
 
 
 class Merge(BaseModel):
@@ -37,61 +38,63 @@ class StrictNotEquals(BaseModel):
 
 
 class Not(BaseModel):
-    not_: tuple[bool | int | str] | bool | int | str | tuple[list[None]] = Field(
+    not_: tuple[bool | Number | str] | bool | Number | str | tuple[list[None]] = Field(
         alias="!"
     )
 
 
 class NotNot(BaseModel):
-    not_not: tuple[int | str | list[None]] = Field(alias="!!")
+    not_not: tuple[Number | str | list[None] | bool] | Number | str | bool = Field(
+        alias="!!"
+    )
 
 
 class GreaterThan(BaseModel):
-    greater_than: tuple[int | str | Var, int | str] = Field(alias=">")
+    greater_than: tuple[Number | str | Var, Number | str] = Field(alias=">")
 
 
 class GreaterThanOrEqual(BaseModel):
-    greater_than_or_equal: tuple[int | str | Var, int | str] = Field(alias=">=")
+    greater_than_or_equal: tuple[Number | str | Var, Number | str] = Field(alias=">=")
 
 
 class LessThan(BaseModel):
-    less_than: tuple[int | str | Var, int | str] | tuple[int, int, int] = Field(
-        alias="<"
-    )
+    less_than: (
+        tuple[Number | str | Var, Number | str] | tuple[Number, Number, Number]
+    ) = Field(alias="<")
 
 
 class LessThanOrEqual(BaseModel):
-    less_than_or_equal: tuple[int | str, int | str] | tuple[int, int, int] = Field(
-        alias="<="
-    )
+    less_than_or_equal: (
+        tuple[Number | str, Number | str] | tuple[Number, Number, Number]
+    ) = Field(alias="<=")
 
 
 class Max(BaseModel):
-    max: list[int]
+    max: list[Number]
 
 
 class Min(BaseModel):
-    min: list[int]
+    min: list[Number]
 
 
 class Add(BaseModel):
-    add: list[int | str | Var] = Field(alias="+")
+    add: list[Number | str | Var] = Field(alias="+")
 
 
 class Subtract(BaseModel):
-    subtract: tuple[int | str] | tuple[int | str, int | str] = Field(alias="-")
+    subtract: tuple[Number | str] | tuple[Number | str, Number | str] = Field(alias="-")
 
 
 class Multiply(BaseModel):
-    multiply: list[int | str | Var] = Field(alias="*")
+    multiply: list[Number | str | Var] = Field(alias="*")
 
 
 class Divide(BaseModel):
-    divide: tuple[int | str, int | str] = Field(alias="/")
+    divide: tuple[Number | str, Number | str] = Field(alias="/")
 
 
 class Modulo(BaseModel):
-    modulo: tuple[int | Var, int] = Field(alias="%")
+    modulo: tuple[Number | str | Var, Number | str] = Field(alias="%")
 
 
 class In(BaseModel):
@@ -99,7 +102,7 @@ class In(BaseModel):
 
 
 class Cat(BaseModel):
-    cat: int | str | list[int | str]
+    cat: Number | str | bool | list[Number | str | bool]
 
 
 class Substr(BaseModel):
@@ -107,15 +110,15 @@ class Substr(BaseModel):
 
 
 class Log(BaseModel):
-    log: int | str | bool | tuple[int | str | bool]
+    log: Number | str | bool | list[Number | str | bool]
 
 
 class Or(BaseModel):
-    or_: list[Union[bool, int, str, list[None], "JSONLogic"]] = Field(alias="or")
+    or_: list[Union[bool, Number, str, list[None], "JSONLogic"]] = Field(alias="or")
 
 
 class And(BaseModel):
-    and_: list[Union[bool, int, str, list[None], "JSONLogic"]] = Field(alias="and")
+    and_: list[Union[bool, Number, str, list[None], "JSONLogic"]] = Field(alias="and")
 
 
 class If(BaseModel):
