@@ -1,4 +1,4 @@
-from typing import Any, Union
+from typing import Annotated, Any, Union
 
 from pydantic import BaseModel, Field
 
@@ -22,51 +22,56 @@ class MissingSome(BaseModel):
 
 
 class Equals(BaseModel):
-    equals: tuple[Any, Any] = Field(alias="==")
+    equals: Annotated[tuple[Any, Any], Field(alias="==")]
 
 
 class StrictEquals(BaseModel):
-    strict_equals: tuple[Any, Any] = Field(alias="===")
+    strict_equals: Annotated[tuple[Any, Any], Field(alias="===")]
 
 
 class NotEquals(BaseModel):
-    not_equals: tuple[Any, Any] = Field(alias="!=")
+    not_equals: Annotated[tuple[Any, Any], Field(alias="!=")]
 
 
 class StrictNotEquals(BaseModel):
-    strict_not_equals: tuple[Any, Any] = Field(alias="!==")
+    strict_not_equals: Annotated[tuple[Any, Any], Field(alias="!==")]
 
 
 class Not(BaseModel):
-    not_: tuple[bool | Number | str] | bool | Number | str | tuple[list[None]] = Field(
-        alias="!"
-    )
+    not_: Annotated[
+        tuple[bool | Number | str] | bool | Number | str | tuple[list[None]],
+        Field(alias="!"),
+    ]
 
 
 class NotNot(BaseModel):
-    not_not: tuple[Number | str | list[None] | bool] | Number | str | bool = Field(
-        alias="!!"
-    )
+    not_not: Annotated[
+        tuple[Number | str | list[None] | bool] | Number | str | bool, Field(alias="!!")
+    ]
 
 
 class GreaterThan(BaseModel):
-    greater_than: tuple[Number | str | Var, Number | str] = Field(alias=">")
+    greater_than: Annotated[tuple[Number | str | Var, Number | str], Field(alias=">")]
 
 
 class GreaterThanOrEqual(BaseModel):
-    greater_than_or_equal: tuple[Number | str | Var, Number | str] = Field(alias=">=")
+    greater_than_or_equal: Annotated[
+        tuple[Number | str | Var, Number | str], Field(alias=">=")
+    ]
 
 
 class LessThan(BaseModel):
-    less_than: (
-        tuple[Number | str | Var, Number | str] | tuple[Number, Number, Number]
-    ) = Field(alias="<")
+    less_than: Annotated[
+        tuple[Number | str | Var, Number | str] | tuple[Number, Number, Number],
+        Field(alias="<"),
+    ]
 
 
 class LessThanOrEqual(BaseModel):
-    less_than_or_equal: (
-        tuple[Number | str, Number | str] | tuple[Number, Number, Number]
-    ) = Field(alias="<=")
+    less_than_or_equal: Annotated[
+        tuple[Number | str, Number | str] | tuple[Number, Number, Number],
+        Field(alias="<="),
+    ]
 
 
 class Max(BaseModel):
@@ -78,27 +83,31 @@ class Min(BaseModel):
 
 
 class Add(BaseModel):
-    add: list[Number | str | Var] = Field(alias="+")
+    add: Annotated[list[Number | str | Var], Field(alias="+")]
 
 
 class Subtract(BaseModel):
-    subtract: tuple[Number | str] | tuple[Number | str, Number | str] = Field(alias="-")
+    subtract: Annotated[
+        tuple[Number | str] | tuple[Number | str, Number | str], Field(alias="-")
+    ]
 
 
 class Multiply(BaseModel):
-    multiply: list[Number | str | Var] = Field(alias="*")
+    multiply: Annotated[list[Number | str | Var], Field(alias="*")]
 
 
 class Divide(BaseModel):
-    divide: tuple[Number | str, Number | str] = Field(alias="/")
+    divide: Annotated[tuple[Number | str, Number | str], Field(alias="/")]
 
 
 class Modulo(BaseModel):
-    modulo: tuple[Number | str | Var, Number | str] = Field(alias="%")
+    modulo: Annotated[tuple[Number | str | Var, Number | str], Field(alias="%")]
 
 
 class In(BaseModel):
-    in_: tuple[Union[int, str, "JSONLogic"], list[int | str] | str] = Field(alias="in")
+    in_: Annotated[
+        tuple[Union[int, str, "JSONLogic"], list[int | str] | str], Field(alias="in")
+    ]
 
 
 class Cat(BaseModel):
@@ -114,15 +123,19 @@ class Log(BaseModel):
 
 
 class Or(BaseModel):
-    or_: list[Union[bool, Number, str, list[None], "JSONLogic"]] = Field(alias="or")
+    or_: Annotated[
+        list[Union[bool, Number, str, list[None], "JSONLogic"]], Field(alias="or")
+    ]
 
 
 class And(BaseModel):
-    and_: list[Union[bool, Number, str, list[None], "JSONLogic"]] = Field(alias="and")
+    and_: Annotated[
+        list[Union[bool, Number, str, list[None], "JSONLogic"]], Field(alias="and")
+    ]
 
 
 class If(BaseModel):
-    if_: list[Any] = Field(alias="if")
+    if_: Annotated[list[Any], Field(alias="if")]
 
 
 class Filter(BaseModel):
