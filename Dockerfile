@@ -12,7 +12,7 @@ RUN set eux; \
     cd /usr/local/bin; \
     ln -s /opt/poetry/bin/poetry; \
     poetry config virtualenvs.create false; \
-    poetry self add poetry-sort
+    poetry self add poetry-plugin-sort
 
 COPY ./pyproject.toml ./poetry.lock /opt/pydantic-jsonlogic/
 
