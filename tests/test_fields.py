@@ -12,6 +12,7 @@ from pydantic_jsonlogic import (
     GreaterThanOrEqual,
     If,
     In,
+    Length,
     LessThan,
     LessThanOrEqual,
     Log,
@@ -682,4 +683,17 @@ def test_none(json: str) -> None:
 )
 def test_some(json: str) -> None:
     model = Some.model_validate_json(json)
+    assert json == model.model_dump_json(by_alias=True)
+
+
+@pytest.mark.parametrize(
+    "json",
+    [
+        '{"length":"somevalue"}',
+        '{"length":["somevalue"]}',
+        '{"length":[{"var":"text"}]}',
+    ],
+)
+def test_length(json: str) -> None:
+    model = Length.model_validate_json(json)
     assert json == model.model_dump_json(by_alias=True)

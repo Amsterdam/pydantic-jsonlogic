@@ -194,6 +194,10 @@ class Some(BaseModel):
     ]
 
 
+class Length(BaseModel):
+    length: str | tuple[str | Var | If | Substr]
+
+
 JSONLogic = (
     Add
     | All
@@ -230,4 +234,5 @@ JSONLogic = (
     | Substr
     | Subtract
     | Var
+    | Length
 )
