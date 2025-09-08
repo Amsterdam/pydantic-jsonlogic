@@ -16,7 +16,7 @@ dependencies = [
 black = "^25.1.0"
 isort = "^6.0.0"
 mypy = "^1.17.1"
-pytest = "^8.4.1"
+pytest = "^8.4.2"
 
 [build-system]
 requires = ["poetry-core"]
